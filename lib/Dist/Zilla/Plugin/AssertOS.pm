@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AssertOS;
 BEGIN {
-  $Dist::Zilla::Plugin::AssertOS::VERSION = '0.02';
+  $Dist::Zilla::Plugin::AssertOS::VERSION = '0.04';
 }
 
 # ABSTRACT: Require that our distribution is running on a particular OS
@@ -80,12 +80,14 @@ sub gather_files {
 
 sub setup_installer {
   my $self = shift;
-  my ($mfpl) = grep { $_->name eq 'Makefile.PL' } @{ $self->zilla->files };
-  return unless $mfpl;
-  my $content = qq{use lib 'inc';\nuse Devel::AssertOS qw[};
-  $content .= join ' ', $self->os;
-  $content .= "];\n";
-  $mfpl->content( $content . $mfpl->content );
+  my @mfpl = grep { $_->name eq 'Makefile.PL' or $_->name eq 'Build.PL' } @{ $self->zilla->files };
+  return unless @mfpl;
+  for my $mfpl ( @mfpl ) {
+    my $content = qq{use lib 'inc';\nuse Devel::AssertOS qw[};
+    $content .= join ' ', $self->os;
+    $content .= "];\n";
+    $mfpl->content( $content . $mfpl->content );
+  }
   return;
 }
 
@@ -94,15 +96,22 @@ no Moose;
 
 qq[run run Reynard]
 
+
 __END__
+=pod
 
 =head1 NAME
 
 Dist::Zilla::Plugin::AssertOS - Require that our distribution is running on a particular OS
 
+=head1 VERSION
+
+version 0.04
+
 =head1 SYNOPSIS
 
-  # In dist.ini - It is important that AssertOS follows MakeMaker
+  # In dist.ini - It is important that AssertOS follows MakeMaker or
+  # ModuleBuild
 
   [MakeMaker]
 
@@ -119,12 +128,13 @@ Dist::Zilla::Plugin::AssertOS is a L<Dist::Zilla> plugin that integrates L<Devel
 may easily stipulate which particular OS environments their distributions may be built and installed on.
 
 The author specifies which OS or OS families are supported. The necessary L<Devel::AssertOS> files are copied to the 
-C<inc/> directory and C<Makefile.PL> is mungled to include the necessary incantation.
+C<inc/> directory and C<Makefile.PL> or C<Build.PL> is mungled to include the necessary incantation.
 
 On the module user side, the bundled C<inc/> L<Devel::AssertOS> determines whether the current environment is 
 supported or not and will die accordingly.
 
-As this plugin mungles the C<Makefile.PL> it is imperative that it is specified in C<dist.ini> AFTER C<[MakeMaker]>.
+As this plugin mungles the C<Makefile.PL>/C<Build.PL> it is imperative that it is specified in C<dist.ini> 
+AFTER C<[MakeMaker]> or C<[ModuleBuild]>.
 
 This plugin also automagically adds the C<no_index> metadata so that C<inc/> is excluded from PAUSE indexing. If 
 you use L<Dist::Zilla::Plugin::MetaNoIndex>, there may be conflicts.
@@ -162,22 +172,14 @@ Required by L<Dist::Zilla::Role::MetaProvider>.
 
 =back
 
-=head1 AUTHOR
-
-Chris C<BinGOs> Williams
+=head1 KUDOS
 
 Based on L<use-devel-assertos> by David Cantrell
 
-=head1 KUDOS
+Build.PL support contributed by Yanick Champoux
 
 Thanks to Ricardo Signes, not only for L<Dist::Zilla>, but for explaining L<Dist::Zilla::Role::InstallTool>'s
 place in the build process. This made this plugin possible.
-
-=head1 LICENSE
-
-Copyright E<copy> Chris Williams and David Cantrell
-
-This module may be used, modified, and distributed under the same terms as Perl itself. Please see the license that came with your Perl distribution for details.
 
 =head1 SEE ALSO
 
@@ -187,4 +189,16 @@ L<Devel::AssertOS>
 
 L<Devel::CheckOS>
 
+=head1 AUTHOR
+
+Chris Williams <chris@bingosnet.co.uk>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2010 by Chris Williams and David Cantrell.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
+

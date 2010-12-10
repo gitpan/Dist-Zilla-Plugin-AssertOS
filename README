@@ -2,8 +2,12 @@ NAME
     Dist::Zilla::Plugin::AssertOS - Require that our distribution is running
     on a particular OS
 
+VERSION
+    version 0.04
+
 SYNOPSIS
-      # In dist.ini - It is important that AssertOS follows MakeMaker
+      # In dist.ini - It is important that AssertOS follows MakeMaker or
+      # ModuleBuild
 
       [MakeMaker]
 
@@ -23,14 +27,16 @@ DESCRIPTION
 
     The author specifies which OS or OS families are supported. The
     necessary Devel::AssertOS files are copied to the "inc/" directory and
-    "Makefile.PL" is mungled to include the necessary incantation.
+    "Makefile.PL" or "Build.PL" is mungled to include the necessary
+    incantation.
 
     On the module user side, the bundled "inc/" Devel::AssertOS determines
     whether the current environment is supported or not and will die
     accordingly.
 
-    As this plugin mungles the "Makefile.PL" it is imperative that it is
-    specified in "dist.ini" AFTER "[MakeMaker]".
+    As this plugin mungles the "Makefile.PL"/"Build.PL" it is imperative
+    that it is specified in "dist.ini" AFTER "[MakeMaker]" or
+    "[ModuleBuild]".
 
     This plugin also automagically adds the "no_index" metadata so that
     "inc/" is excluded from PAUSE indexing. If you use
@@ -55,22 +61,14 @@ DESCRIPTION
     "metadata"
         Required by Dist::Zilla::Role::MetaProvider.
 
-AUTHOR
-    Chris "BinGOs" Williams
-
+KUDOS
     Based on use-devel-assertos by David Cantrell
 
-KUDOS
+    Build.PL support contributed by Yanick Champoux
+
     Thanks to Ricardo Signes, not only for Dist::Zilla, but for explaining
     Dist::Zilla::Role::InstallTool's place in the build process. This made
     this plugin possible.
-
-LICENSE
-    Copyright © Chris Williams and David Cantrell
-
-    This module may be used, modified, and distributed under the same terms
-    as Perl itself. Please see the license that came with your Perl
-    distribution for details.
 
 SEE ALSO
     Dist::Zilla
@@ -78,4 +76,14 @@ SEE ALSO
     Devel::AssertOS
 
     Devel::CheckOS
+
+AUTHOR
+    Chris Williams <chris@bingosnet.co.uk>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2010 by Chris Williams and David
+    Cantrell.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 

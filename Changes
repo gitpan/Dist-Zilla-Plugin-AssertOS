@@ -1,3 +1,19 @@
-===================================
-End of changes in the last 365 days
-===================================
+==============================
+2010-12-10 10:28:58 +0000 0.04
+==============================
+
+  commit d2bd6462cd8a17a4493a29cc430709cceae3a493
+  Author: Chris 'BinGOs' Williams <chris@bingosnet.co.uk>
+  Date:   Fri Dec 10 10:28:58 2010 +0000
+  
+    Fixed up distribution to my new standards
+
+  commit 5af679f046f8839d8fc20678d3fa5cd0899ea349
+  Author: Yanick Champoux <yanick@babyl.dyndns.org>
+  Date:   Fri Dec 10 09:27:33 2010 +0800
+  
+    add support for Build.PL 
+
+====================================
+End of changes in the last 1825 days
+====================================
