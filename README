@@ -3,7 +3,7 @@ NAME
     on a particular OS
 
 VERSION
-    version 0.04
+    version 0.06
 
 SYNOPSIS
       # In dist.ini - It is important that AssertOS follows MakeMaker or
@@ -48,6 +48,13 @@ DESCRIPTION
         distribution to work with. See Devel::AssertOS and Devel::CheckOS
         for what may be given.
 
+    "bundle"
+        If set to c<0> Devel::AssertOS will not be bundled in the
+        distribution. It will instead be added to "configure_requires" in
+        the "META" files so CPAN clients can install it before running
+        "Makefile.PL". The default is 1, so Devel::AssertOS is bundled in
+        "inc".
+
   METHODS
     These are required by the roles that this plugin uses.
 
@@ -81,7 +88,7 @@ AUTHOR
     Chris Williams <chris@bingosnet.co.uk>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2010 by Chris Williams and David
+    This software is copyright (c) 2013 by Chris Williams and David
     Cantrell.
 
     This is free software; you can redistribute it and/or modify it under

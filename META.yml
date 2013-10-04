@@ -2,11 +2,15 @@
 abstract: 'Require that our distribution is running on a particular OS'
 author:
   - 'Chris Williams <chris@bingosnet.co.uk>'
-build_requires: {}
+build_requires:
+  File::Spec: 0
+  IO::Handle: 0
+  IPC::Open3: 0
+  Test::More: 0
 configure_requires:
-  ExtUtils::MakeMaker: 6.31
+  ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.102345, CPAN::Meta::Converter version 2.102400'
+generated_by: 'Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.132661'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -19,6 +23,6 @@ requires:
   Dist::Zilla::Role::MetaProvider: 4.101582
   perl: 5.008005
 resources:
-  homepage: http://github.com/bingos/dist-zilla-plugin-assertos/tree
-  repository: git://github.com/bingos/dist-zilla-plugin-assertos.git
-version: 0.04
+  homepage: https://github.com/bingos/dist-zilla-plugin-assertos
+  repository: https://github.com/bingos/dist-zilla-plugin-assertos.git
+version: 0.06
